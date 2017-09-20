@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+  "fmt"
+  "log"
+)
 
 const MAX_SIZE = 9 
 
@@ -13,6 +16,8 @@ func printGrid(grid [][]string ){
     fmt.Printf("\n")
   }
 }
+
+
 
 func main(){
 
@@ -28,5 +33,13 @@ func main(){
   }
 
   printGrid(grid)
+
+  var searchTerm string
+  fmt.Printf("Enter a word to search, or ! to exit: ")
+  _, err := fmt.Scanln(&searchTerm)
+  if err != nil {
+    log.Fatal(err)
+  }
+  fmt.Println(searchTerm)
 
 }
