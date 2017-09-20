@@ -3,6 +3,7 @@ package main
 import (
   "fmt"
   "log"
+  "os"
 )
 
 const MAX_SIZE = 9 
@@ -36,10 +37,16 @@ func main(){
 
   var searchTerm string
   fmt.Printf("Enter a word to search, or ! to exit: ")
-  _, err := fmt.Scanln(&searchTerm)
-  if err != nil {
-    log.Fatal(err)
+  for searchTerm != "!" {
+    _, err := fmt.Scanln(&searchTerm)
+    if err != nil {
+      log.Fatal(err)
+    }
+    fmt.Println(searchTerm)
+    if searchTerm == "!" {
+      os.Exit(0)
+    }
+    fmt.Printf("Enter a word to search, or ! to exit: ")
   }
-  fmt.Println(searchTerm)
 
 }
