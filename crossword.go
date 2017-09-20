@@ -6,8 +6,6 @@ import (
   "os"
 )
 
-const MAX_SIZE = 9 
-
 func printGrid(grid [][]string ){
   
   for _,row := range grid {
