@@ -43,6 +43,23 @@ func search(word string, grid [][]string)(frow, fcol, fdir int){
   return
 }
 
+// SearchAll takes the list of words provided and searches all of them automatically
+func searchAll(words []string, grid [][]string){
+
+  for _,word := range words {
+    row, col, dir := search(word, grid)
+    printSearch(word, row, col, dir)
+  }
+
+}
+
+// PrintSearch nicely formats the search results
+func printSearch(searchTerm string, row, col, dir int){
+
+  fmt.Printf("Word: %v AT (%v,%v,%v) (r,c,d)\n", searchTerm, row, col, dir)
+
+}
+
 // Match searches the crossword grid in direction starting at
 // ridx, cidx, and returns true if word is found
 func match( word string, grid [][]string, ridx, cidx, dir int )(found bool){
@@ -182,6 +199,7 @@ func match( word string, grid [][]string, ridx, cidx, dir int )(found bool){
 }
 
 // Main program logic, searches a crossword puzzle for words
+// Also determines if a wordlist should be used, and searches those words automatically
 func main(){
 
   args := os.Args
@@ -191,45 +209,69 @@ func main(){
     os.Exit(1)
   } 
 
-  gridfile, err := os.Open(args[1])
+  gridFile, err := os.Open(args[1])
   if err != nil {
     panic(err)
   }
+
+  defer gridFile.Close()
   
   //make grid
   var lines []string
-  scanner := bufio.NewScanner(gridfile)
-  for scanner.Scan(){
-    lines = append(lines, scanner.Text())
+  gridScanner := bufio.NewScanner(gridFile)
+  for gridScanner.Scan() {
+    lines = append(lines, gridScanner.Text())
   }
-
   var grid [][]string
   for _,line := range lines {
-    var splitline []string
+    var splitLine []string
     for _,chrune := range line {
       char := string(chrune)
-      splitline= append(splitline, char)
+      splitLine= append(splitLine, char)
     }
-    grid = append(grid, splitline)
+    grid = append(grid, splitLine)
+  }
+  
+  //make wordlist
+  var words []string
+  if len(args) == 3 {
+
+    wordFile, err := os.Open(args[2])
+    if err != nil {
+      panic(err)
+    }
+    wordScanner := bufio.NewScanner(wordFile)
+    for wordScanner.Scan() {
+      words = append(words, wordScanner.Text())
+    }
+
+    defer wordFile.Close()
+
   }
 
   printGrid(grid)
 
-  var searchTerm string
-  fmt.Printf("Enter a word to search, or ! to exit: ")
-  for searchTerm != "!" {
-    _, err := fmt.Scanln(&searchTerm)
-    if err != nil {
-      log.Fatal(err)
-    }
-    fmt.Println(searchTerm)
-    if searchTerm == "!" {
-      os.Exit(0)
-    }
+  fmt.Println(words)
 
-    fmt.Println(search(searchTerm, grid))
 
+  if ( len(args) == 2 ) {
+    var searchTerm string
     fmt.Printf("Enter a word to search, or ! to exit: ")
+    for searchTerm != "!" {
+      _, err := fmt.Scanln(&searchTerm)
+      if err != nil {
+        log.Fatal(err)
+      }
+      if searchTerm == "!" {
+        os.Exit(0)
+      }
+      row, col, dir := search(searchTerm, grid) 
+      printSearch(searchTerm, row, col, dir)
+  
+      fmt.Printf("Enter a word to search, or ! to exit: ")
+    }
+  } else {
+    searchAll(words, grid)
   }
 
 }
