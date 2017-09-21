@@ -31,7 +31,7 @@ func search(word string, grid [][]string) (frow, fcol, fdir int) {
 	frow, fcol, fdir = -1, -1, -1
 
 	for ridx, row := range grid {
-		for cidx, _ := range row {
+		for cidx := range row {
 			for dir := 1; dir <= DIRECTIONS; dir++ {
 				if match(word, grid, ridx, cidx, dir) {
 					frow, fcol, fdir = ridx+1, cidx+1, dir
@@ -60,6 +60,46 @@ func printSearch(searchTerm string, row, col, dir int) {
 
 }
 
+// OutOfBounds is a helper function for match
+// It takes the indexes and dimensions
+// Then checks to make sure the search does not go off the grid
+func outOfBounds(ridx, cidx, rowlength, collength int) (out bool) {
+
+	if cidx >= collength || cidx < 0 || ridx >= rowlength || ridx < 0 {
+		out = true
+	}
+
+	return
+
+}
+
+// MatchChar determines if two characters match
+func matchChar(char, gridChar string) (match bool) {
+
+	if char == gridChar {
+		match = true
+	}
+
+	return
+
+}
+
+// Helper function for match that makes checks bounds and character matching
+func matchChecks(char, word string, grid [][]string, ridx, cidx, dir, pos, rowlength, collength int) (matches bool) {
+
+	if outOfBounds(ridx, cidx, rowlength, collength) {
+		return
+	}
+	if !matchChar(char, grid[ridx][cidx]) {
+		return
+	}
+	if matchChar(char, grid[ridx][cidx]) && pos+1 == len(word) {
+		matches = true
+	}
+
+	return
+}
+
 // Match searches the crossword grid in direction starting at
 // ridx, cidx, and returns true if word is found
 func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
@@ -70,16 +110,10 @@ func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
 	case 1:
 		for pos, chrune := range word {
 			char := string(chrune)
-			//      fmt.Printf("r %v, c %v\n", ridx, cidx)
-			if cidx >= collength || ridx < 0 {
+			if !matchChecks(char, word, grid, ridx, cidx, dir, pos, rowlength, collength) {
 				break
-			}
-			if grid[ridx][cidx] != char {
-				break
-			}
-			if grid[ridx][cidx] == char && pos+1 == len(word) {
+			} else {
 				found = true
-				//        fmt.Printf("Found %v\n", char)
 			}
 			ridx--
 			cidx++
@@ -88,13 +122,9 @@ func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
 	case 2:
 		for pos, chrune := range word {
 			char := string(chrune)
-			if cidx >= collength {
+			if !matchChecks(char, word, grid, ridx, cidx, dir, pos, rowlength, collength) {
 				break
-			}
-			if grid[ridx][cidx] != char {
-				break
-			}
-			if grid[ridx][cidx] == char && pos+1 == len(word) {
+			} else {
 				found = true
 			}
 			cidx++
@@ -103,13 +133,9 @@ func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
 	case 3:
 		for pos, chrune := range word {
 			char := string(chrune)
-			if cidx >= collength || ridx >= rowlength {
+			if !matchChecks(char, word, grid, ridx, cidx, dir, pos, rowlength, collength) {
 				break
-			}
-			if grid[ridx][cidx] != char {
-				break
-			}
-			if grid[ridx][cidx] == char && pos+1 == len(word) {
+			} else {
 				found = true
 			}
 			ridx++
@@ -119,13 +145,9 @@ func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
 	case 4:
 		for pos, chrune := range word {
 			char := string(chrune)
-			if ridx >= rowlength {
+			if !matchChecks(char, word, grid, ridx, cidx, dir, pos, rowlength, collength) {
 				break
-			}
-			if grid[ridx][cidx] != char {
-				break
-			}
-			if grid[ridx][cidx] == char && pos+1 == len(word) {
+			} else {
 				found = true
 			}
 			ridx++
@@ -134,13 +156,9 @@ func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
 	case 5:
 		for pos, chrune := range word {
 			char := string(chrune)
-			if cidx < 0 || ridx >= rowlength {
+			if !matchChecks(char, word, grid, ridx, cidx, dir, pos, rowlength, collength) {
 				break
-			}
-			if grid[ridx][cidx] != char {
-				break
-			}
-			if grid[ridx][cidx] == char && pos+1 == len(word) {
+			} else {
 				found = true
 			}
 			ridx++
@@ -150,13 +168,9 @@ func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
 	case 6:
 		for pos, chrune := range word {
 			char := string(chrune)
-			if cidx < 0 {
+			if !matchChecks(char, word, grid, ridx, cidx, dir, pos, rowlength, collength) {
 				break
-			}
-			if grid[ridx][cidx] != char {
-				break
-			}
-			if grid[ridx][cidx] == char && pos+1 == len(word) {
+			} else {
 				found = true
 			}
 			cidx--
@@ -165,13 +179,9 @@ func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
 	case 7:
 		for pos, chrune := range word {
 			char := string(chrune)
-			if cidx < 0 || ridx < 0 {
+			if !matchChecks(char, word, grid, ridx, cidx, dir, pos, rowlength, collength) {
 				break
-			}
-			if grid[ridx][cidx] != char {
-				break
-			}
-			if grid[ridx][cidx] == char && pos+1 == len(word) {
+			} else {
 				found = true
 			}
 			ridx--
@@ -181,13 +191,9 @@ func match(word string, grid [][]string, ridx, cidx, dir int) (found bool) {
 	case 8:
 		for pos, chrune := range word {
 			char := string(chrune)
-			if ridx < 0 {
+			if !matchChecks(char, word, grid, ridx, cidx, dir, pos, rowlength, collength) {
 				break
-			}
-			if grid[ridx][cidx] != char {
-				break
-			}
-			if grid[ridx][cidx] == char && pos+1 == len(word) {
+			} else {
 				found = true
 			}
 			ridx--
