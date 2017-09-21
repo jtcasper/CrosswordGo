@@ -4,6 +4,7 @@ import (
   "fmt"
   "log"
   "os"
+  "bufio"
 )
 
 // Directions to search in when matching
@@ -183,16 +184,33 @@ func match( word string, grid [][]string, ridx, cidx, dir int )(found bool){
 // Main program logic, searches a crossword puzzle for words
 func main(){
 
-  grid := [][]string{ []string{"p", "a", "s", "s", "w", "0", "r", "d", "1"},
-                      []string{"p", "0", "0", "0", "0", "0", "0", "0", "0"},
-                      []string{"0", "0", "0", "0", "0", "0", "0", "0", "0"},
-                      []string{"0", "0", "0", "0", "0", "0", "0", "0", "0"},
-                      []string{"0", "0", "0", "0", "0", "0", "0", "0", "0"},
-                      []string{"0", "0", "0", "0", "0", "0", "0", "0", "0"},
-                      []string{"0", "0", "0", "0", "0", "0", "0", "0", "0"},
-                      []string{"0", "0", "0", "0", "0", "0", "0", "0", "0"},
-                      []string{"b", "0", "0", "0", "0", "0", "0", "0", "0"},
-                      []string{"a", "0", "0", "0", "0", "0", "0", "0", "0"},
+  args := os.Args
+
+  if len(args) == 1 {
+    fmt.Println("Usage: crossword <gridfile> <word bank (optional)>")
+    os.Exit(1)
+  } 
+
+  gridfile, err := os.Open(args[1])
+  if err != nil {
+    panic(err)
+  }
+  
+  //make grid
+  var lines []string
+  scanner := bufio.NewScanner(gridfile)
+  for scanner.Scan(){
+    lines = append(lines, scanner.Text())
+  }
+
+  var grid [][]string
+  for _,line := range lines {
+    var splitline []string
+    for _,chrune := range line {
+      char := string(chrune)
+      splitline= append(splitline, char)
+    }
+    grid = append(grid, splitline)
   }
 
   printGrid(grid)
