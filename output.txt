@@ -1,0 +1,33 @@
+    1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 
+ 1  W  U  U  O  H  N  S  Y  A  D  I  L  O  H  Z
+ 2  S  I  J  I  L  Y  P  P  H  S  O  C  T  L  X
+ 3  D  E  M  W  E  E  K  E  N  D  U  G  E  I  S
+ 4  E  T  P  S  I  J  I  L  S  Y  A  D  N  O  M
+ 5  C  V  K  T  R  M  W  U  U  O  H  N  S  Y  G
+ 6  F  Q  L  E  E  N  S  I  M  I  L  Y  P  U  H
+ 7  N  A  O  C  V  M  D  R  M  W  U  U  O  N  S
+ 8  A  Z  I  F  Q  L  B  T  E  S  I  A  I  A  R
+ 9  T  X  U  K  R  O  W  E  R  D  Y  D  W  C  E
+10  I  S  Y  M  Z  I  F  Q  R  E  T  A  S  I  R
+11  O  C  T  R  A  V  E  L  O  C  V  K  D  R  O
+12  N  G  E  I  S  D  M  Z  G  N  O  L  E  E  B
+13  A  H  R  O  A  T  L  X  U  K  A  O  F  M  A
+14  L  N  S  Y  G  N  I  D  N  E  Z  I  F  A  L
+15  L  Y  P  P  H  R  O  C  T  L  A  B  O  R  P
+[LABOR DAY HOLIDAY SEPTEMBER WORK LONG WEEKEND ENDING SUMMER NATIONAL USA TRAVEL AMERICAN MONDAY DAY OFF]
+Word: LABOR AT (13,14,8) (r,c,d)
+Word: DAY AT (0,9,6) (r,c,d)
+Word: HOLIDAY AT (0,13,6) (r,c,d)
+Word: SEPTEMBER AT (1,0,3) (r,c,d)
+Word: LONG AT (11,11,6) (r,c,d)
+Word: WEEKEND AT (2,3,2) (r,c,d)
+Word: ENDING AT (13,9,6) (r,c,d)
+Word: SUMMER AT (3,8,4) (r,c,d)
+Word: NATIONAL AT (6,0,4) (r,c,d)
+Word: USA AT (2,10,7) (r,c,d)
+Word: TRAVEL AT (10,2,2) (r,c,d)
+Word: AMERICAN AT (13,13,8) (r,c,d)
+Word: MONDAY AT (3,14,6) (r,c,d)
+Word: DAY AT (0,9,6) (r,c,d)
+Word: OFF AT (14,12,8) (r,c,d)
+Word: WORK AT (8,6,6) (r,c,d)
