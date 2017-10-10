@@ -1,3 +1,7 @@
+# CrosswordGo
+
+### It has been made apparent to me that these are actually word-searches [@maya-shankar](https://github.com/maya-shankar)
+
 I made this to solve my apartment's monthly crossword contests.
 
 This supports n x m crossword puzzles, but *NOT* ragged matrices.
