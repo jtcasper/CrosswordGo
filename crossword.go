@@ -15,9 +15,17 @@ const DIRECTIONS = 8
 // it formats the grid in to a nice presentation
 func printGrid(grid [][]string) {
 
-	for _, row := range grid {
+	for index, row := range grid {
+		if index == 0 {
+			fmt.Printf("   ")
+			for col, _ := range row {
+				fmt.Printf("%2d ", col+1)
+			}
+			fmt.Printf("\n")
+		}
+		fmt.Printf("%2d", index+1)
 		for _, char := range row {
-			fmt.Printf(" %v", char)
+			fmt.Printf(" %2v", char)
 		}
 		fmt.Printf("\n")
 	}
