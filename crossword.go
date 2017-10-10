@@ -19,11 +19,11 @@ func printGrid(grid [][]string) {
 		if index == 0 {
 			fmt.Printf("   ")
 			for col, _ := range row {
-				fmt.Printf("%2d ", col+1)
+				fmt.Printf("%2d ", col)
 			}
 			fmt.Printf("\n")
 		}
-		fmt.Printf("%2d", index+1)
+		fmt.Printf("%2d", index)
 		for _, char := range row {
 			fmt.Printf(" %2v", char)
 		}
