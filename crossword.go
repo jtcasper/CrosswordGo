@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"sync"
 )
 
@@ -92,7 +93,7 @@ func outOfBounds(ridx, cidx, rowlength, collength int) (out bool) {
 // MatchChar determines if two characters match
 func matchChar(char, gridChar string) (match bool) {
 
-	if char == gridChar {
+	if strings.ToUpper(char) == strings.ToUpper(gridChar) {
 		match = true
 	}
 
